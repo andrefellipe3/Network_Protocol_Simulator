@@ -2,34 +2,34 @@ package UDP;
 import java.io.*;
 import java.net.*;
 
-public class ServidorUDP {
-    public static void main(String[] args) {
+public class ServidorUDP 
+{
+    public static void ServidorTesteUDP() 
+    {
         DatagramSocket socket = null;
         try {
-            // Criando um socket UDP na porta 6999
+            // Criando um socket UDP
             socket = new DatagramSocket(6999);
+            System.out.println("Servidor UDP aguardando pacotes de dados...");
 
-            // Aguardando a chegada de pacotes
             byte[] buffer = new byte[1024];
-            DatagramPacket pacote = new DatagramPacket(buffer, buffer.length);
-            System.out.println("Servidor aguardando mensagens...");
+            while (true) 
+            {
+                // Recebendo o pacote do cliente
+                DatagramPacket pacoteRecebido = new DatagramPacket(buffer, buffer.length);
+                socket.receive(pacoteRecebido);
 
-            // Recebendo o pacote do cliente
-            socket.receive(pacote);
+                // Processando o pacote recebido
+                // Aqui você pode adicionar lógica para decodificar/processar pacotes de áudio/vídeo
+                System.out.println("Pacote de dados recebido do cliente");
 
-            // Extraindo os dados recebidos e exibindo-os
-            String mensagem = new String(pacote.getData(), 0, pacote.getLength());
-            System.out.println("Mensagem recebida do cliente: " + mensagem);
-
-            // Preparando a resposta
-            String resposta = "Ola, cliente";
-            byte[] dadosResposta = resposta.getBytes();
-
-            // Criando um pacote com a resposta e enviando para o cliente
-            InetAddress enderecoCliente = pacote.getAddress();
-            int portaCliente = pacote.getPort();
-            DatagramPacket pacoteResposta = new DatagramPacket(dadosResposta, dadosResposta.length, enderecoCliente, portaCliente);
-            socket.send(pacoteResposta);
+                // Enviando uma confirmação de recebimento ao cliente
+                String resposta = "Pacote recebido com sucesso!";
+                byte[] respostaBytes = resposta.getBytes();
+                DatagramPacket pacoteResposta = new DatagramPacket(respostaBytes, respostaBytes.length, 
+                                                                   pacoteRecebido.getAddress(), pacoteRecebido.getPort());
+                socket.send(pacoteResposta);
+            }
         } catch (IOException e) {
             e.printStackTrace();
         } finally {

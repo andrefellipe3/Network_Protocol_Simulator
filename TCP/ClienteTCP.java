@@ -2,18 +2,16 @@ package TCP;
 import java.io.*;
 import java.net.*;
 
-public class ClienteTCP 
-{
+public class ClienteTCP {
 
-    public static void main(String[] args) 
-    {
+    public static void EnviarArquivoTCP(File arquivo) {
         Socket socket = null;
         DataOutputStream out = null;
         DataInputStream in = null;
-        String EnderecoIP = "";
-        int porta = 0;
-        try {
+        String EnderecoIP = "192.168.0.0";  // Substitua pelo endereço IP do servidor
+        int porta = 6698;  // Substitua pela porta do servidor
 
+        try {
             // Criando um socket TCP e conectando-se ao servidor na porta 6698
             socket = new Socket(EnderecoIP, porta);
 
@@ -21,12 +19,7 @@ public class ClienteTCP
             out = new DataOutputStream(socket.getOutputStream());
             in = new DataInputStream(socket.getInputStream());
 
-            // Caminho do arquivo a ser enviado
-            String caminhoArquivo = "./TCP/arquivo.txt";
-            File arquivo = new File(caminhoArquivo);
-
-            if (arquivo.exists() && !arquivo.isDirectory())
-            {
+            if (arquivo.exists() && !arquivo.isDirectory()) {
                 FileInputStream fileInput = new FileInputStream(arquivo);
 
                 // Enviando o nome do arquivo para o servidor

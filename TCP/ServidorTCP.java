@@ -3,7 +3,7 @@ import java.io.*;
 import java.net.*;
 
 public class ServidorTCP {
-    public static void main(String[] args) {
+    public static void ServidorTesteTCP() {
         ServerSocket serverSocket = null;
         Socket clientSocket = null;
         DataInputStream in = null;
