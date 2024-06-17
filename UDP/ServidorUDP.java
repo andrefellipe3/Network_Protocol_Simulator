@@ -7,7 +7,8 @@ public class ServidorUDP
     public static void ServidorTesteUDP() 
     {
         DatagramSocket socket = null;
-        try {
+        try 
+        {
             // Criando um socket UDP
             socket = new DatagramSocket(6999);
             System.out.println("Servidor UDP aguardando pacotes de dados...");
@@ -20,7 +21,6 @@ public class ServidorUDP
                 socket.receive(pacoteRecebido);
 
                 // Processando o pacote recebido
-                // Aqui você pode adicionar lógica para decodificar/processar pacotes de áudio/vídeo
                 System.out.println("Pacote de dados recebido do cliente");
 
                 // Enviando uma confirmação de recebimento ao cliente
@@ -30,10 +30,12 @@ public class ServidorUDP
                                                                    pacoteRecebido.getAddress(), pacoteRecebido.getPort());
                 socket.send(pacoteResposta);
             }
-        } catch (IOException e) {
+        } catch (IOException e) 
+        {
             e.printStackTrace();
         } finally {
-            if (socket != null) {
+            if (socket != null) 
+            {
                 socket.close();
             }
         }

@@ -3,13 +3,15 @@ import java.io.*;
 import java.net.*;
 
 public class ServidorTCP {
-    public static void ServidorTesteTCP() {
+    public static void ServidorTesteTCP() 
+    {
         ServerSocket serverSocket = null;
         Socket clientSocket = null;
         DataInputStream in = null;
         DataOutputStream out = null;
 
-        try {
+        try 
+        {
             // Criando um servidor TCP na porta 6698
             serverSocket = new ServerSocket(6698);
             System.out.println("Servidor aguardando conexão na porta 6698...");
@@ -34,7 +36,8 @@ public class ServidorTCP {
             byte[] buffer = new byte[4096];
             int bytesLidos;
             long totalBytesLidos = 0;
-            while (totalBytesLidos < tamanhoArquivo && (bytesLidos = in.read(buffer)) != -1) {
+            while (totalBytesLidos < tamanhoArquivo && (bytesLidos = in.read(buffer)) != -1) 
+            {
                 fileOutput.write(buffer, 0, bytesLidos);
                 totalBytesLidos += bytesLidos;
             }
@@ -43,23 +46,30 @@ public class ServidorTCP {
             // Enviando confirmação para o cliente
             out.writeUTF("Arquivo recebido com sucesso.");
 
-        } catch (IOException e) {
+        } catch (IOException e) 
+        {
             e.printStackTrace();
-        } finally {
+        } finally 
+        {
             try {
-                if (clientSocket != null) {
+                if (clientSocket != null) 
+                {
                     clientSocket.close();
                 }
-                if (serverSocket != null) {
+                if (serverSocket != null) 
+                {
                     serverSocket.close();
                 }
-                if (in != null) {
+                if (in != null) 
+                {
                     in.close();
                 }
-                if (out != null) {
+                if (out != null) 
+                {
                     out.close();
                 }
-            } catch (IOException e) {
+            } catch (IOException e) 
+            {
                 e.printStackTrace();
             }
         }

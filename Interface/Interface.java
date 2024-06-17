@@ -51,7 +51,7 @@ public class Interface
         uploadButton.setVisible(false); // Esconde o botão inicialmente
         buttonPanel.add(uploadButton);
 
-         // Cria o botão de upload de arquivo
+         // Cria o botão de Simular Streaming
          JButton UDPStreamingButton = new JButton("Simular Streaming de Audio/Video");
          UDPStreamingButton.setVisible(false); // Esconde o botão inicialmente
          buttonPanel.add(UDPStreamingButton);
@@ -60,7 +60,8 @@ public class Interface
         panel.add(buttonPanel, BorderLayout.NORTH);
 
         // Adiciona ação ao botão de upload de arquivo
-        uploadButton.addActionListener(new ActionListener() {
+        uploadButton.addActionListener(new ActionListener() 
+        {
             @Override
             public void actionPerformed(ActionEvent e) {
                 JFileChooser fileChooser = new JFileChooser();

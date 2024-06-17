@@ -8,7 +8,7 @@ public class ClienteTCP {
         Socket socket = null;
         DataOutputStream out = null;
         DataInputStream in = null;
-        String EnderecoIP = "192.168.0.0";  // Substitua pelo endereço IP do servidor
+        String EnderecoIP = "";  // Substitua pelo endereço IP do servidor
         int porta = 6698;  // Substitua pela porta do servidor
 
         try {
@@ -19,7 +19,8 @@ public class ClienteTCP {
             out = new DataOutputStream(socket.getOutputStream());
             in = new DataInputStream(socket.getInputStream());
 
-            if (arquivo.exists() && !arquivo.isDirectory()) {
+            if (arquivo.exists() && !arquivo.isDirectory()) 
+            {
                 FileInputStream fileInput = new FileInputStream(arquivo);
 
                 // Enviando o nome do arquivo para o servidor
@@ -31,7 +32,8 @@ public class ClienteTCP {
                 // Enviando o conteúdo do arquivo para o servidor
                 byte[] buffer = new byte[4096];
                 int bytesLidos;
-                while ((bytesLidos = fileInput.read(buffer)) != -1) {
+                while ((bytesLidos = fileInput.read(buffer)) != -1) 
+                {
                     out.write(buffer, 0, bytesLidos);
                 }
                 fileInput.close();
@@ -39,23 +41,31 @@ public class ClienteTCP {
                 // Recebendo a resposta do servidor
                 String respostaServidor = in.readUTF();
                 System.out.println("Resposta do servidor: " + respostaServidor);
-            } else {
+            } else 
+            {
                 System.out.println("Arquivo não encontrado ou é um diretório.");
             }
-        } catch (IOException e) {
+        } catch (IOException e) 
+        {
             e.printStackTrace();
-        } finally {
-            try {
-                if (socket != null) {
+        } finally 
+        {
+            try 
+            {
+                if (socket != null) 
+                {
                     socket.close();
                 }
-                if (out != null) {
+                if (out != null) 
+                {
                     out.close();
                 }
-                if (in != null) {
+                if (in != null) 
+                {
                     in.close();
                 }
-            } catch (IOException e) {
+            } catch (IOException e) 
+            {
                 e.printStackTrace();
             }
         }
