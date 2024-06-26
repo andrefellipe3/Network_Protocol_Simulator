@@ -1,41 +1,33 @@
-package UDP;
 import java.io.*;
 import java.net.*;
 
-public class ServidorUDP 
-{
-    public static void ServidorTesteUDP() 
-    {
+public class ServidorUDP {
+    public static void main(String[] args) {
         DatagramSocket socket = null;
-        try 
-        {
-            // Criando um socket UDP
+        try {
             socket = new DatagramSocket(6999);
-            System.out.println("Servidor UDP aguardando pacotes de dados...");
-
             byte[] buffer = new byte[1024];
-            while (true) 
-            {
-                // Recebendo o pacote do cliente
-                DatagramPacket pacoteRecebido = new DatagramPacket(buffer, buffer.length);
-                socket.receive(pacoteRecebido);
+            DatagramPacket pacote = new DatagramPacket(buffer, buffer.length);
+            System.out.println("Servidor UDP aguardando mensagens...");
 
-                // Processando o pacote recebido
-                System.out.println("Pacote de dados recebido do cliente");
+            while (true) {
+                socket.receive(pacote);
 
-                // Enviando uma confirmação de recebimento ao cliente
-                String resposta = "Pacote recebido com sucesso!";
-                byte[] respostaBytes = resposta.getBytes();
-                DatagramPacket pacoteResposta = new DatagramPacket(respostaBytes, respostaBytes.length, 
-                                                                   pacoteRecebido.getAddress(), pacoteRecebido.getPort());
+                String mensagem = new String(pacote.getData(), 0, pacote.getLength());
+                System.out.println("Mensagem recebida do cliente: " + mensagem);
+
+                String resposta = "Olá, cliente";
+                byte[] dadosResposta = resposta.getBytes();
+
+                InetAddress enderecoCliente = pacote.getAddress();
+                int portaCliente = pacote.getPort();
+                DatagramPacket pacoteResposta = new DatagramPacket(dadosResposta, dadosResposta.length, enderecoCliente, portaCliente);
                 socket.send(pacoteResposta);
             }
-        } catch (IOException e) 
-        {
+        } catch (IOException e) {
             e.printStackTrace();
         } finally {
-            if (socket != null) 
-            {
+            if (socket != null) {
                 socket.close();
             }
         }
