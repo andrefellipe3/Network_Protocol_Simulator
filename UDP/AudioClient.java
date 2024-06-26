@@ -56,7 +56,7 @@ public class AudioClient extends JFrame {
             DatagramSocket socket = null;
             try {
                 socket = new DatagramSocket();
-                InetAddress serverAddress = InetAddress.getByName("localhost");
+                InetAddress serverAddress = InetAddress.getByName("192.168.0.0");
                 AudioFormat format = new AudioFormat(44100, 16, 2, true, false);
                 DataLine.Info info = new DataLine.Info(TargetDataLine.class, format);
                 TargetDataLine microphone = (TargetDataLine) AudioSystem.getLine(info);
