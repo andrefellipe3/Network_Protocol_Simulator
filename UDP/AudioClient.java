@@ -55,7 +55,7 @@ public class AudioClient extends JFrame {
             try {
                 socket = new DatagramSocket();
                 // Substitua "192.168.0.0" pelo endereço IP do servidor (PC2)
-                InetAddress serverAddress = InetAddress.getByName("192.168.1.100");
+                InetAddress serverAddress = InetAddress.getByName("192.168.1.101");
                 AudioFormat format = new AudioFormat(44100, 16, 2, true, false);
                 DataLine.Info info = new DataLine.Info(TargetDataLine.class, format);
                 TargetDataLine microphone = (TargetDataLine) AudioSystem.getLine(info);
