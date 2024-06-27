@@ -5,7 +5,7 @@ import java.net.*;
 import java.util.Arrays;
 
 public class AudioServer extends JFrame {
-    private static final int PORT = 6999;
+    private static final int PORT = 6596;
     private static final int BUFFER_SIZE = 1024; // Reduzido o tamanho do buffer para 1024 bytes
     private AudioPanel audioPanel;
 
@@ -42,6 +42,7 @@ public class AudioServer extends JFrame {
                     socket.receive(packet);
                     byte[] data = Arrays.copyOf(packet.getData(), packet.getLength());
                     audioOut.write(data, 0, packet.getLength());
+                    System.out.println("Pacote recebido com " + packet.getLength() + " bytes");
                     audioPanel.updateAudioData(data);
                 }
             } catch (Exception e) {
@@ -74,8 +75,7 @@ public class AudioServer extends JFrame {
 
             g.setColor(Color.GREEN);
             int middle = getHeight() / 2;
-            for (int i = 0; i < audioData.length - 2; i += 2) 
-            {
+            for (int i = 0; i < audioData.length - 2; i += 2) {
                 int x1 = i * getWidth() / (audioData.length / 2);
                 int y1 = middle + (audioData[i] + audioData[i + 1]) / 2;
                 int x2 = (i + 1) * getWidth() / (audioData.length / 2);

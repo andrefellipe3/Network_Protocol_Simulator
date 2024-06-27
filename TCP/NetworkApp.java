@@ -25,7 +25,7 @@ public class NetworkApp extends JFrame {
         JScrollPane scrollPane = new JScrollPane(logArea);
 
         JPanel controlPanel = new JPanel(new BorderLayout());
-        ipField = new JTextField("192.168.0.0");
+        ipField = new JTextField("192.168.0.1");
         portField = new JTextField("6698");
         JPanel addressPanel = new JPanel(new GridLayout(1, 4));
         addressPanel.add(new JLabel("IP:"));

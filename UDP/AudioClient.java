@@ -4,7 +4,7 @@ import java.awt.event.*;
 import java.net.*;
 
 public class AudioClient extends JFrame {
-    private static final int PORT = 6999;
+    private static final int PORT = 6596;
     private static final int BUFFER_SIZE = 1024; // Reduzido o tamanho do buffer para 1024 bytes
     private boolean running = false;
 
@@ -49,14 +49,13 @@ public class AudioClient extends JFrame {
         running = false;
     }
 
-    private class AudioSender implements Runnable 
-    {
-        public void run() 
-        {
+    private class AudioSender implements Runnable {
+        public void run() {
             DatagramSocket socket = null;
             try {
                 socket = new DatagramSocket();
-                InetAddress serverAddress = InetAddress.getByName("192.168.0.0");
+                // Substitua "192.168.0.0" pelo endereço IP do servidor (PC2)
+                InetAddress serverAddress = InetAddress.getByName("192.168.1.100");
                 AudioFormat format = new AudioFormat(44100, 16, 2, true, false);
                 DataLine.Info info = new DataLine.Info(TargetDataLine.class, format);
                 TargetDataLine microphone = (TargetDataLine) AudioSystem.getLine(info);
@@ -69,6 +68,7 @@ public class AudioClient extends JFrame {
                     int bytesRead = microphone.read(buffer, 0, buffer.length);
                     DatagramPacket packet = new DatagramPacket(buffer, bytesRead, serverAddress, PORT);
                     socket.send(packet);
+                    System.out.println("Pacote enviado com " + bytesRead + " bytes");
                 }
 
                 microphone.stop();
